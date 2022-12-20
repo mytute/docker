@@ -149,3 +149,41 @@ Remove docker builded image
 ```bash
 $ sudo docker image rm [OPTIONS] IMAGE [IMAGE...]
 ```
+
+# docker with Angular 
+
+create "Docker.dev" and  "Docker" files on algular root directory for create docker for development and production. 
+
+create ".dockerignore" file for not to copy node modules to docker container by copy all ".gitignore" code to ".dockerignore" file. 
+
+> "Docker.dev"
+
+```bash
+FROM node:16.17.1
+
+#define working derectory 
+ARG WORK_DIR=/frontend 
+ENV PATH ${WORK_DIR}/node_modules/.bin:$PATH
+
+# create working derectory 
+RUN mkdir ${WORK_DIR}
+WORKDIR ${WORK_DIR}
+
+# copy files to docker container from repo
+COPY package.json ${WORK_DIR}
+COPY package-lock.json ${WORK_DIR}
+
+RUN npm install @angular/cli@14.2.10
+RUN npm install
+
+COPY . ${WORK_DIR}
+
+EXPOSE 4200
+
+CMD ng serve --host 0.0.0.0
+```
+
+
+
+
+
