@@ -183,6 +183,33 @@ EXPOSE 4200
 CMD ng serve --host 0.0.0.0
 ```
 
+```bash
+$ docker run --rm -p 4200:4200 $(docker build -q -f Dockerfile.dev .)
+# --rm remove after finish 
+# -p port number
+# -q return hash file on the image
+# -f file option because we are using "Dockerfile.dev" not default file.
+# . to integrate on current directory.
+```
+
+simple way to built and run docker app    
+```bash
+$ docker build -t your_dockerhub_username/nodejs-image-demo .
+# 
+```
+```bash
+$  docker run --name node-test -p 3000:8080 -d your_dockerhub_username/nodejs-image-demo
+# 3000 outer port(browser to container)
+# 8080 inner port(container to nodeapp)
+```
+
+simple way to delete docker images 
+```bash
+$ docker run -d -p 3000:8080 "test1" 
+# 3000 outer port(browser to container)
+# 8080 inner port(container to nodeapp)
+```
+
 
 
 
